@@ -6,6 +6,9 @@
 
     <groupId>bigdata.servcies</groupId>
     <artifactId>s3_connector</artifactId>
+    <packaging>jar</packaging>
+
+
     <version>1.0</version>
     <build>
         <plugins>
@@ -17,6 +20,76 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>add your main class</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.confluent</groupId>
+                <version>0.11.2</version>
+                <artifactId>kafka-connect-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>kafka-connect</goal>
+                        </goals>
+                        <configuration>
+                            <title>Kafka Connect S3</title>
+                            <description>
+                                The S3 sink and source connector allows you to export and import data from and to Kafka topics from S3.
+                            </description>
+
+                            <supportProviderName>Bdservices</supportProviderName>
+                            <supportSummary>Support is provided as best effort only. Please contact us in chat or mail .</supportSummary>
+
+                            <sourceUrl>https://github.com/DanielBeilin/KafkaS3Connector</sourceUrl>
+
+                            <ownerUsername>DanielBeilin</ownerUsername>
+                            <ownerType>user</ownerType>
+                            <ownerName>Daniel Beilin</ownerName>
+                            <ownerUrl>https://github.com/DanielBeilin</ownerUrl>
+
+                            <componentTypes>
+                                <componentType>sink</componentType>
+                                <componentType>source</componentType>
+                            </componentTypes>
+
+                            <tags>
+                                <tag>s3</tag>
+                                <tag>backup</tag>
+                            </tags>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/development.xml</descriptor>
+                        <descriptor>src/assembly/package.xml</descriptor>
+                    </descriptors>
+                    <attach>false</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -24,18 +97,22 @@
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
             <version>1.11.734</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
-            <version>6.0.0-ccs-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-api</artifactId>
-            <version>6.0.0-ccs-SNAPSHOT</version>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-connect-maven-plugin</artifactId>
+            <version>0.11.2</version>
         </dependency>
     </dependencies>
-
-
 </project>
