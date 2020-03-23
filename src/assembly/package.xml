@@ -10,21 +10,17 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}</directory>
-            <outputDirectory>share/doc/kafka-connect-s3/</outputDirectory>
+            <directory>${basedir}</directory>
+            <outputDirectory>share\doc\kafka-connect-s3\</outputDirectory>
             <includes>
                 <include>version.txt</include>
                 <include>README*</include>
                 <include>LICENSE*</include>
-                <include>NOTICE*</include>
-                <include>licenses.html</include>
-                <include>licenses/</include>
-                <include>notices/</include>
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/config</directory>
-            <outputDirectory>etc/kafka-connect-s3</outputDirectory>
+            <directory>${basedir}\config</directory>
+            <outputDirectory>etc\kafka-connect-s3</outputDirectory>
             <includes>
                 <include>*</include>
             </includes>
@@ -32,7 +28,7 @@
     </fileSets>
     <dependencySets>
         <dependencySet>
-            <outputDirectory>share/java/kafka-connect-s3</outputDirectory>
+            <outputDirectory>share\java\kafka-connect-s3</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
             <useTransitiveFiltering>true</useTransitiveFiltering>
             <excludes>
